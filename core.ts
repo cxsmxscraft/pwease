@@ -16,6 +16,8 @@ export const launch = async () => {
     }
 
     switch (url.pathname) {
+      case "/scripter":
+        return Response.redirect("https://raw.githubusercontent.com/uwucraft/scripter/main/install.sh",302);
       case "/latest":
         // Getting the data
         const manifest = await fetch("https://launchermeta.mojang.com/mc/game/version_manifest.json");
