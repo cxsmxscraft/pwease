@@ -1,6 +1,7 @@
 import { blue, serve } from "./deps.ts";
 import latest from "./middleware/latest.ts";
 import version from "./middleware/version.ts";
+import list from "./middleware/list.ts";
 
 export const launch = async () => {
   await console.log(blue("[INFO]"), `Serverless request handling...`);
@@ -24,10 +25,16 @@ export const launch = async () => {
         );
       case "/version":
         return url.searchParams.has("v")
-          ? Response.redirect(await version(url.searchParams.get("v") as string))
+          ? Response.redirect(
+            await version(url.searchParams.get("v") as string),
+          )
           : new Response("Missing 'v' param!", { status: 400 });
       case "/latest":
         return Response.redirect(await latest(), 302);
+      case "/list":
+        return new Response(JSON.stringify(await list()), {
+          headers: { "content-type": "application/json" },
+        });
       default:
         return Response.redirect("https://github.com/uwucraft/pwease", 302);
     }
