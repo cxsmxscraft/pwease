@@ -9,16 +9,16 @@ export interface Latest {
 }
 
 export interface Version {
-  id: string
-  type: string
-  url: string
-  time: string
-  releaseTime: string
+  id: string;
+  type: string;
+  url: string;
+  time: string;
+  releaseTime: string;
 }
 
 export interface Data {
-  latest: Latest,
-  versions: Version[]
+  latest: Latest;
+  versions: Version[];
 }
 
 /**
@@ -27,44 +27,44 @@ export interface Data {
  */
 
 export interface AssetIndex {
-  id: string
-  sha1: string
-  size: number
-  totalSize: number
-  url: string
+  id: string;
+  sha1: string;
+  size: number;
+  totalSize: number;
+  url: string;
 }
 
 export interface JavaVersion {
-  component: string
-  majorVersion: number
+  component: string;
+  majorVersion: number;
 }
 
 export interface Download {
-  sha1: string
-  size: number
-  url: string
+  sha1: string;
+  size: number;
+  url: string;
 }
 
 export interface Downloads {
-  client: Download
-  client_mappings: Download
-  server: Download
-  server_mappings: Download
+  client: Download;
+  client_mappings: Download;
+  server: Download;
+  server_mappings: Download;
 }
 
 export interface Asset {
-  arguments: unknown,
-  assetIndex: AssetIndex
-  assets: string
-  complianceLevel: number
-  downloads: Downloads
-  id: string
-  javaVersion: JavaVersion
-  libraries: unknown
-  logging: unknown
-  mainClass: string
-  minimumLauncherVersion: number
-  releaseTime: string
-  time: string
-  type: string
+  arguments: unknown;
+  assetIndex: AssetIndex;
+  assets: string;
+  complianceLevel: number;
+  downloads: Downloads;
+  id: string;
+  javaVersion: JavaVersion;
+  libraries: unknown;
+  logging: unknown;
+  mainClass: string;
+  minimumLauncherVersion: number;
+  releaseTime: string;
+  time: string;
+  type: string;
 }

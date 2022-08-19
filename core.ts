@@ -1,5 +1,6 @@
 import { blue, serve } from "./deps.ts";
-import type {Asset, Data} from "./types.ts";
+import latest from "./middleware/latest.ts";
+import version from "./middleware/version.ts";
 
 export const launch = async () => {
   await console.log(blue("[INFO]"), `Serverless request handling...`);
@@ -17,18 +18,16 @@ export const launch = async () => {
 
     switch (url.pathname) {
       case "/scripter":
-        return Response.redirect("https://raw.githubusercontent.com/uwucraft/scripter/main/install.sh",302);
+        return Response.redirect(
+          "https://raw.githubusercontent.com/uwucraft/scripter/main/install.sh",
+          302,
+        );
+      case "/version":
+        return url.searchParams.has("v")
+          ? Response.redirect(await version(url.searchParams.get("v") as string))
+          : new Response("Missing 'v' param!", { status: 400 });
       case "/latest":
-        // Getting the data
-        const manifest = await fetch("https://launchermeta.mojang.com/mc/game/version_manifest.json");
-        const manifestJSON: Data = await manifest.json();
-
-        // Getting the latest version whereas type is release
-        const latest = manifestJSON.versions.find((version) => version.type == "release");
-        const data = await fetch(latest!.url);
-        const dataJSON: Asset = await data.json();
-
-        return Response.redirect(dataJSON.downloads.server.url,302);
+        return Response.redirect(await latest(), 302);
       default:
         return Response.redirect("https://github.com/uwucraft/pwease", 302);
     }
